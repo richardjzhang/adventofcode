@@ -1,7 +1,6 @@
-const file = require('./partone-input');
+const input = require('./input').input;
 
 function main(target) {
-  const input = file.input;
   let memory = {};
   let result;
   for (let i = 0; i < input.length; i++) {

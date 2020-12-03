@@ -1,8 +1,6 @@
-const file = require('./partone-input');
+const input = require('./input').input.sort((a, b) => (a > b ? 1 : -1));;
 
 function main() {
-  // Sort in ascending order
-  const input = file.input.sort((a, b) => (a > b ? 1 : -1));
   let result;
   for (let i = 0; i < input.length; i++) {
     // Skip duplicate numbers

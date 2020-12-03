@@ -1,7 +1,6 @@
-const file = require('./input.js');
+const input = require('./input').input;
 
 function main(right) {
-  const input = file.input;
   // Total trees
   let trees = 0;
 

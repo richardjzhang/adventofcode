@@ -1,8 +1,8 @@
-const file = require('./input.js');
+const input = require('./input').input;
 
 function main() {
   let validPasswords = 0;
-  const input = file.input;
+
   for (let i = 0; i < input.length; i++) {
     let frequency = 0;
     let [policy, letter, password] = input[i].split(' ');

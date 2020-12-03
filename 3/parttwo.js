@@ -1,7 +1,6 @@
-const file = require('./input.js');
+const input = require('./input').input;
 
-function traverseSlope(right, increment) {
-  const input = file.input;
+function traverseSlope(right, down) {
   // Total trees
   let trees = 0;
 
@@ -12,7 +11,7 @@ function traverseSlope(right, increment) {
   const tree = '#';
   const open = '.';
 
-  for (let row = increment; row < input.length; row += increment) {
+  for (let row = down; row < input.length; row += down) {
     let pattern = input[row];
     position += right;
 
