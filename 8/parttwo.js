@@ -50,7 +50,6 @@ function chainCheck(instructions, idx, fix) {
   return [acc, true];
 }
 
-let visitedIndex = {};
 let chain = {};
 
 async function main() {
@@ -59,10 +58,9 @@ async function main() {
 
   let i = 0;
   while (i < instructions.length) {
-    if (visitedIndex[i] != null) break;
-    else visitedIndex[i] = 1;
-
+    if (chain[i] != null) break;
     const { instruction, value } = instructions[i];
+
     switch (instruction) {
       case 'nop':
         chain[i] = 'nop';
@@ -73,12 +71,15 @@ async function main() {
         i += value;
         continue;
       }
-      default: {
+      default:
         i++;
-      }
     }
   }
 
+  // For the list of jmp and nop leading
+  // up to the bug, check every single one
+  // by passing in the other code to see if
+  // the instructions execute to the end
   Object.keys(chain).forEach((idx) => {
     const [acc, reachedEnd] = chainCheck(
       instructions,
