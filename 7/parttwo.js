@@ -39,12 +39,12 @@ function processInput(input) {
   }, {});
 }
 
-function traverse(value, bags, targetBag) {
+function traverse(bags, targetBag) {
   const searchBags = bags[targetBag];
   let tempValue = 0;
 
   Object.keys(searchBags).forEach((b) => {
-    tempValue += searchBags[b] + searchBags[b] * traverse(value, bags, b);
+    tempValue += searchBags[b] + searchBags[b] * traverse(bags, b);
   });
 
   return tempValue;
@@ -53,7 +53,7 @@ function traverse(value, bags, targetBag) {
 async function main() {
   const input = await readFile();
   const bags = processInput(input);
-  console.log(traverse(0, bags, 'shiny gold'));
+  console.log(traverse(bags, 'shiny gold'));
 }
 
 main();
