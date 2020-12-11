@@ -1,18 +1,6 @@
-const fs = require('fs');
 const path = require('path');
 const filePath = path.join(__dirname, 'input.txt');
-
-// Reading the file input.txt
-async function readFile(path) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filePath, 'utf8', function (err, data) {
-      if (err) {
-        reject(err);
-      }
-      resolve(data);
-    });
-  });
-}
+const readFile = require('../utils').readFile;
 
 // Processing the input into a suitable data structure
 function processInput(input) {
@@ -33,7 +21,7 @@ function processInput(input) {
 
 // Main function that is run to get solution
 async function main() {
-  const input = await readFile();
+  const input = await readFile(filePath);
   const answers = processInput(input);
   console.log(answers.reduce((acc, curr) => acc + Object.keys(curr).length, 0));
 }
