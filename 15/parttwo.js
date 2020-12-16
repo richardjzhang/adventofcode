@@ -1,4 +1,3 @@
-const { userInfo } = require('os');
 const path = require('path');
 const filePath = path.join(__dirname, 'input.txt');
 const readFile = require('../utils').readFile;
