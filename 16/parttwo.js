@@ -28,12 +28,18 @@ function processInput(raw) {
 
   // Get nearby tickets numbers
   nearbyTickets = nearbyTickets.slice(1).map((numbers) => numbers.split(','));
-  return [validRanges, nearbyTickets];
+
+  // Get your ticket
+  yourTicket = yourTicket
+    .slice(1)
+    .map((numbers) => numbers.split(','))[0]
+    .map((number) => parseInt(number, 10));
+  return [validRanges, yourTicket, nearbyTickets];
 }
 
 async function main() {
   const raw = await readFile(filePath);
-  const [validRanges, nearbyTickets] = processInput(raw);
+  const [validRanges, yourTicket, nearbyTickets] = processInput(raw);
   let i = 0;
   while (i < nearbyTickets.length) {
     const tickets = nearbyTickets[i];
@@ -66,38 +72,45 @@ async function main() {
     positions[i] = arr;
     i++;
   }
-  console.log(positions);
+
+  let removedKeys = [];
+  const keys = Object.keys(positions);
+  while (true) {
+    let removeField;
+    for (const position of keys) {
+      const field = positions[position][0];
+      if (positions[position].length === 1 && !removedKeys.includes(field)) {
+        removeField = field;
+        removedKeys.push(removeField);
+        break;
+      }
+    }
+
+    keys.filter((position) => {
+      if (
+        positions[position].length > 1 &&
+        positions[position].includes(removeField)
+      ) {
+        const index = positions[position].indexOf(removeField);
+        positions[position].splice(index, 1);
+      }
+    });
+
+    const totalFields = keys.reduce(
+      (acc, curr) => acc + positions[curr].length,
+      0,
+    );
+    // Breaking condition
+    if (totalFields === keys.length) break;
+  }
+  let result = 1;
+  for (const position of keys) {
+    const field = positions[position];
+    if (field[0].includes('departure')) {
+      result *= yourTicket[position];
+    }
+  }
+  console.log(result);
 }
-
-// I performed the final step manually :(. Couldn't
-// seem to get the trimmed list by recursion without hitting a maximum
-// call stack size
-
-// positions = {
-//   0: ['arrival location'],
-//   1: ['arrival station'],
-//   2: ['wagon'],
-//   3: ['seat'],
-//   4: ['arrival track'],
-//   5: ['departure location'],
-//   6: ['type'],
-//   7: ['row'],
-//   8: ['duration'],
-//   9: ['price'],
-//   10: ['arrival platform'],
-//   11: ['departure station'],
-//   12: ['zone'],
-//   13: ['departure time'],
-//   14: ['departure date'],
-//   15: ['class'],
-//   16: ['train'],
-//   17: ['departure platform'],
-//   18: ['route'],
-//   19: ['departure track'],
-// };
-
-// your ticket
-// 109,137,131,157,191,103,127,53,107,151,61,59,139,83,101,149,89,193,113,97
-// 103 * 59 * 83 * 101 * 193 * 97
 
 main();
