@@ -1,0 +1,22 @@
+# acedgfb 8
+# dab 7
+# eafb 4
+# ab 1
+
+# 0 6 9
+# cagedb #f -> 0
+# cdfgeb #a -> 6
+# cefabd #g -> 9
+
+# 1 maps to 6 because 6 will be missing 1 of 1's characters
+# 4 maps to 0 because 0 will be missing 1 of 4's characters
+# last one is 9
+
+# 2 3 5
+# cdfbe # g and a -> 5
+# fbcad # g and e -> 3
+# gcdfa # b and e -> 2
+
+# 1 maps to 3 because 3 contains both characters for 1
+# 4 maps to 2 because it misses 2 characters of 2
+# last one is 5
