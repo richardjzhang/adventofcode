@@ -71,7 +71,6 @@ def main
       @digits_to_signals.find { |k, v| v.size == chars_array.size && !v.difference(chars_array).any? }.first
     }.join("").to_i
   end
-
   sum
 end
 
